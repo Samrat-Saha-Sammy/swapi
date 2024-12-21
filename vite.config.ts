@@ -8,6 +8,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, "./config", "");
   // Config uses VITE_PORT from the .env.[environment] file
   const PORT = Number(env.VITE_PORT) ?? 3000;
+  const prefixToRemove = `/${env.VITE_END_POINT}`;
 
   return {
     resolve: {
@@ -19,11 +20,11 @@ export default defineConfig(({ mode }) => {
     server: {
       port: PORT,
       proxy: {
-        "/foo": {
-          target: "https://www.swapi.tech/api",
+        [prefixToRemove]: {
+          target: env.VITE_API_URL,
           changeOrigin: true,
           secure: true,
-          rewrite: (path) => path.replace(/^\/foo/, ""),
+          rewrite: (path) => path.replace(new RegExp(`^${prefixToRemove}`), ""),
         },
       },
     },
