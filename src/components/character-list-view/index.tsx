@@ -5,14 +5,13 @@ import { useNavigate } from "react-router-dom";
 
 const CharacterListView: React.FC<{ cid: string }> = ({ cid }) => {
   const character = useCharacterStore((state) => state.characters[cid]);
-  const planet = usePlanetStore((state) =>
-    character && character.homeWorldId !== null
-      ? state.planets[character.homeWorldId!]
-      : null
-  );
-  const navigate = useNavigate();
+  const planet = usePlanetStore((state) => state.planets[character.planetId]);
 
+  const getPlanetByCharacterId = usePlanetStore(
+    (state) => state.getPlanetByCharacterId
+  );
   const getCharacterById = useCharacterStore((state) => state.getCharacterById);
+  const navigate = useNavigate();
 
   const handleDetailsClick = (id: string) => {
     navigate(`/details/${id}`);
@@ -20,6 +19,7 @@ const CharacterListView: React.FC<{ cid: string }> = ({ cid }) => {
 
   useEffect(() => {
     getCharacterById(cid);
+    getPlanetByCharacterId(cid);
   }, [cid]);
 
   return (
@@ -30,7 +30,6 @@ const CharacterListView: React.FC<{ cid: string }> = ({ cid }) => {
           {`Gender: ${character?.gender}`}
         </span>
         <span className="text-sm text-gray-600">
-          {" "}
           {`Home Planet: ${planet?.name}`}
         </span>
       </div>

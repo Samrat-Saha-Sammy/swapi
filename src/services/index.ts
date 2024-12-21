@@ -1,12 +1,12 @@
 import axios, { AxiosResponse } from "axios";
 import { API_PEOPLE, API_PLANET } from "./endpoints";
-import { ICharacterDetails, ICharacterList, IPlanetDetails } from "./types";
+import { ICharacter, ICharacterList, IPlanet } from "./types";
 
-export const getCharacters = async (
-  limit: Number = 10
-): Promise<AxiosResponse<ICharacterList>> => {
+export const getCharacters = async (): Promise<
+  AxiosResponse<ICharacterList>
+> => {
   try {
-    return await axios.get<ICharacterList>(`${API_PEOPLE}?limit=${limit}`);
+    return await axios.get<ICharacterList>(`${API_PEOPLE}`);
   } catch (error) {
     console.error("Error fetching characters:", error);
     throw error;
@@ -15,9 +15,9 @@ export const getCharacters = async (
 
 export const getCharacterDetails = async (
   cid: string
-): Promise<AxiosResponse<ICharacterDetails>> => {
+): Promise<AxiosResponse<ICharacter>> => {
   try {
-    return await axios.get<ICharacterDetails>(`${API_PEOPLE}/${cid}`);
+    return await axios.get<ICharacter>(`${API_PEOPLE}/${cid}`);
   } catch (error) {
     console.error("Error fetching characters details:", error);
     throw error;
@@ -26,9 +26,9 @@ export const getCharacterDetails = async (
 
 export const getPlanetDetails = async (
   planetId: string
-): Promise<AxiosResponse<IPlanetDetails>> => {
+): Promise<AxiosResponse<IPlanet>> => {
   try {
-    return await axios.get<IPlanetDetails>(`${API_PLANET}/${planetId}`);
+    return await axios.get<IPlanet>(`${API_PLANET}/${planetId}`);
   } catch (error) {
     console.error("Error fetching planet details:", error);
     throw error;

@@ -1,43 +1,23 @@
 import { create } from "zustand";
-import { ICharacterStore, TCharacterRecordValue } from "./types";
+import { ICharacterStore } from "./types";
 import { getCharacterDetails } from "../../services";
-import { extractPlanetIdFromURL } from "../../utils";
-import usePlanetStore from "../store-planet";
+import { extractLastParamFromURL } from "../../utils";
 
 const useCharacterStore = create<ICharacterStore>((set, get) => ({
   characters: {},
   _addCharacterById: (cid, details) => {
-    const payload = details.result.properties;
-    const planetId = extractPlanetIdFromURL(payload.homeworld); // Extract the planet id from the url
-    // @TODO: Proactive fetch of planet details from character. Could be moved to the component level for fetch when required
-    if (planetId) usePlanetStore.getState().getPlanetById(planetId);
-    // Create a record set using name, url, uid
-    try {
-      const newRecord: TCharacterRecordValue = {
-        height: payload.height,
-        mass: payload.mass,
-        hair_color: payload.mass,
-        skin_color: payload.skin_color,
-        eye_color: payload.eye_color,
-        birth_year: payload.birth_year,
-        gender: payload.gender,
-        created: payload.created,
-        edited: payload.edited,
-        name: payload.name,
-        homeworld: payload.homeworld,
-        url: payload.url,
-        description: details.result.description,
-        homeWorldId: planetId,
-      };
-      // add the entry to store
+    // add the entry to store
+    const planetId = extractLastParamFromURL(details.homeworld);
+
+    if (planetId) {
       set((state) => ({
         characters: {
           ...state.characters,
-          [cid]: { ...newRecord },
+          [cid]: { ...details, planetId: planetId },
         },
       }));
-    } catch (error) {
-      console.error("Error character details mismatch", error);
+    } else {
+      // Error unable to parse the planet url
     }
   },
   getCharacterById: async (cid: string) => {

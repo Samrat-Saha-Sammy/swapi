@@ -1,28 +1,11 @@
-import { ICharacter, ICharacterDetails } from "../../services/types";
+import { ICharacter } from "../../services/types";
 
-export type TCharacterRecordValue = {
-  height: string;
-  mass: string;
-  hair_color: string;
-  skin_color: string;
-  eye_color: string;
-  birth_year: string;
-  gender: string;
-  created: string;
-  edited: string;
-  name: string;
-  homeworld: string;
-  url: string;
-  description: string;
-  homeWorldId: string | null;
-};
-
-export type TCharacterRecord = {
-  [key: string]: TCharacterRecordValue;
-};
+interface ICharacterWithPlanetId extends ICharacter {
+  planetId: string;
+}
 
 export interface ICharacterStore {
-  characters: TCharacterRecord;
-  _addCharacterById(cid: string, details: ICharacterDetails): void;
+  characters: Record<string, ICharacterWithPlanetId>;
+  _addCharacterById(cid: string, details: ICharacter): void;
   getCharacterById(cid: string): void;
 }
