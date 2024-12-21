@@ -3,18 +3,14 @@ import useCharacterStore from "../../stores/store-character";
 import usePlanetStore from "../../stores/store-planet";
 import { useNavigate } from "react-router-dom";
 
-interface Props {
-  cid: string;
-}
-
-const CharacterListView: React.FC<Props> = ({ cid }) => {
-  const navigate = useNavigate();
+const CharacterListView: React.FC<{ cid: string }> = ({ cid }) => {
   const character = useCharacterStore((state) => state.characters[cid]);
   const planet = usePlanetStore((state) =>
     character && character.homeWorldId !== null
       ? state.planets[character.homeWorldId!]
       : null
   );
+  const navigate = useNavigate();
 
   const getCharacterById = useCharacterStore((state) => state.getCharacterById);
 
