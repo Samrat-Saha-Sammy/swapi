@@ -21,7 +21,6 @@ const useFilmStore = create<IFilmStore>((set, get) => ({
 			if (!planetObj) {
 				// Adding a id to discard repeat next request
 				const response = await getFilmDetails(filmId);
-				debugger;
 				get()._addFilmById(filmId, response.data);
 			}
 		} catch (error) {
