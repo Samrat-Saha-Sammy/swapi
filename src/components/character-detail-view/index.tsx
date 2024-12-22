@@ -8,6 +8,7 @@ const CharacterDetailView: React.FC<{ cid: string }> = ({ cid }) => {
 	const character = useCharacterStore((state) => state.characters[cid]);
 	const getCharacterById = useCharacterStore((state) => state.getCharacterById);
 	const getPlanetById = usePlanetStore((state) => state.getPlanetById);
+	const planet = usePlanetStore((state) => state.planets[character.planetId]);
 	const getFilmsByCharacterId = useFilmStore(
 		(state) => state.getFilmsByCharacterId
 	);
@@ -28,6 +29,11 @@ const CharacterDetailView: React.FC<{ cid: string }> = ({ cid }) => {
 	return (
 		<div>
 			<h3>{character?.name}</h3>
+			<p>{character?.hair_color}</p>
+			<p>{character?.eye_color}</p>
+			<p>{character?.gender}</p>
+			<p>{planet?.name}</p>
+			<br />
 			<p>List of films: </p>
 			{character &&
 				character.films &&
