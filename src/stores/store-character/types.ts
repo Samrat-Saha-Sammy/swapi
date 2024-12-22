@@ -1,11 +1,11 @@
-import { ICharacter } from "../../services/types";
+import { ICharacter } from "../../shared/services/types";
 
 interface ICharacterWithPlanetId extends ICharacter {
-  planetId: string;
+	planetId: string;
 }
 
 export interface ICharacterStore {
-  characters: Record<string, ICharacterWithPlanetId>;
-  _addCharacterById(cid: string, details: ICharacter): void;
-  getCharacterById(cid: string): void;
+	characters: Record<string, ICharacterWithPlanetId>;
+	_addCharacterById(cid: string, details: ICharacter): void;
+	getCharacterById(cid: string): void;
 }

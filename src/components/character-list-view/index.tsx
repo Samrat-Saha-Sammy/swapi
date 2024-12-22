@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import useCharacterStore from "../../stores/store-character";
 import usePlanetStore from "../../stores/store-planet";
 import { useNavigate } from "react-router-dom";
-import useFilmStore from "../../stores/store-films";
+import useFilmStore from "../../stores/store-film";
 
 const CharacterListView: React.FC<{ cid: string }> = ({ cid }) => {
 	const character = useCharacterStore((state) => state.characters[cid]);

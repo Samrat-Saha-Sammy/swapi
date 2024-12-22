@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import { IFilmStore } from "./types";
 import useCharacterStore from "../store-character";
-import { extractLastParamFromURL } from "../../utils";
-import { getFilmDetails } from "../../services";
+import { extractLastParamFromURL } from "../../shared/utils";
+import { getFilmDetails } from "../../shared/services";
 
 const useFilmStore = create<IFilmStore>((set, get) => ({
 	films: {},
