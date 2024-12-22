@@ -7,8 +7,8 @@ export default defineConfig(({ mode }) => {
   // Config uses the .env.[environment] file from ./config folder
   const env = loadEnv(mode, "./config", "");
   // Config uses VITE_PORT from the .env.[environment] file
-  const PORT = Number(env.VITE_PORT) ?? 3000;
-  const prefixToRemove = `/${env.VITE_END_POINT}`;
+  const PORT = Number(env.VITE_PORT) || 3000;
+  const prefixToRemove = `/${env.VITE_END_POINT || ""}`;
 
   return {
     resolve: {
@@ -27,6 +27,9 @@ export default defineConfig(({ mode }) => {
           rewrite: (path) => path.replace(new RegExp(`^${prefixToRemove}`), ""),
         },
       },
+    },
+    define: {
+      "process.env.VITE_END_POINT": JSON.stringify(env.VITE_END_POINT),
     },
     plugins: [react(), tsconfigPaths()],
   };
