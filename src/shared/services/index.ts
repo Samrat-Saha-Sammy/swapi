@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
-import { API_FILM, API_PEOPLE, API_PLANET } from "./endpoints";
-import { ICharacter, ICharacterList, IFilm, IPlanet } from "./types";
+import { API_FILM, API_PEOPLE, API_PLANET, API_STARSHIP } from "./endpoints";
+import { ICharacter, ICharacterList, IFilm, IPlanet, IStarship } from "./types";
 
 export const getCharacters = async (): Promise<
 	AxiosResponse<ICharacterList>
@@ -42,6 +42,17 @@ export const getFilmDetails = async (
 		return await axios.get<IFilm>(`${API_FILM}/${filmId}`);
 	} catch (error) {
 		console.error("Error fetching film details:", error);
+		throw error;
+	}
+};
+
+export const getStarshipDetails = async (
+	shipId: string
+): Promise<AxiosResponse<IStarship>> => {
+	try {
+		return await axios.get<IStarship>(`${API_STARSHIP}/${shipId}`);
+	} catch (error) {
+		console.error("Error fetching starship details:", error);
 		throw error;
 	}
 };
