@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.VITE_END_POINT;
+const API_BASE_URL = process.env.VITE_API_URL;
 
 export const API_PEOPLE = API_BASE_URL + "/people";
 export const API_PLANET = API_BASE_URL + "/planets";
