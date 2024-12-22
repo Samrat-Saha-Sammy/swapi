@@ -17,9 +17,9 @@ const useAppStore = create<IAppStore>((set, get) => ({
     try {
       const response = await getCharacters();
       const newBatchIds: string[] = [];
-      for (let key in response.data.results) {
-        let row = response.data.results[key];
-        let id = extractLastParamFromURL(row.url);
+      for (const key in response.data.results) {
+        const row = response.data.results[key];
+        const id = extractLastParamFromURL(row.url);
 
         if (id) {
           newBatchIds.push(id);

@@ -1,23 +1,30 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import useCharacterStore from "../../stores/store-character";
-
+import CharacterDetailView from "../../components/character-detail-view";
 interface Params extends Record<string, string | undefined> {
-  id: string;
+	id: string;
 }
 
 const DetailsPage: React.FC = () => {
-  const { id } = useParams<Params>(); // Extract the `id` parameter
-  const character = useCharacterStore((state) =>
-    id && state.characters[id] ? state.characters[id] : null
-  );
+	const { id } = useParams<Params>(); // Extract the `id` parameter
 
-  return (
-    <div>
-      <h1>Details Page {id}</h1>
-      <p>{JSON.stringify(character)}</p>
-    </div>
-  );
+	// useEffect(() => {
+	//   debugger;
+	//   if (character?.films) {
+	//     const filmIdAry = extractLastParamsFromURLArray(character?.films);
+	//     const filmObjAry = filmIdAry.map((filmId) => {
+	//       return allFilms[filmId];
+	//     });
+	//     setFilms(filmObjAry);
+	//   }
+	// }, [character?.films, allFilms]);
+
+	return (
+		<div>
+			<h1>Details Page {id}</h1>
+			{id && <CharacterDetailView cid={id} />}
+		</div>
+	);
 };
 
 export default DetailsPage;

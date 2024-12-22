@@ -30,7 +30,7 @@ const usePlanetStore = create<IPlanetStore>((set, get) => ({
     }
   },
   getPlanetByCharacterId: async (cid) => {
-    let character = useCharacterStore.getState().characters[cid];
+    const character = useCharacterStore.getState().characters[cid];
 
     if (character && character.planetId) {
       get().getPlanetById(character.planetId);
