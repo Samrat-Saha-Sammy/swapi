@@ -4,11 +4,12 @@ import usePlanetStore from "../../stores/store-planet";
 import { useNavigate } from "react-router-dom";
 import useFilmStore from "../../stores/store-film";
 import useStarshipStore from "../../stores/store-starship";
+import useAppStore from "../../stores/store-app";
 
 const CharacterDetailView: React.FC<{ cid: string }> = ({ cid }) => {
 	// Access properties from stores to access data
 	const character = useCharacterStore((state) => state.characters[cid]);
-	const planet = usePlanetStore((state) => state.planets[character.planetId]);
+	const planet = usePlanetStore((state) => state.planets[character?.planetId]);
 
 	// Access methods from stores to trigger fetch
 	const getCharacterById = useCharacterStore((state) => state.getCharacterById);
@@ -19,6 +20,9 @@ const CharacterDetailView: React.FC<{ cid: string }> = ({ cid }) => {
 	const getFilmsByCharacterId = useFilmStore(
 		(state) => state.getFilmsByCharacterId
 	);
+	const favList = useAppStore((state) => state.likeBatchIds);
+	const addToLikedList = useAppStore((state) => state.addToLikedList);
+	const removeFromLikedList = useAppStore((state) => state.removeFromLikedList);
 
 	// Getting all films & starships to loop through and filter
 	const allFilms = useFilmStore((state) => state.films);
@@ -34,6 +38,11 @@ const CharacterDetailView: React.FC<{ cid: string }> = ({ cid }) => {
 		character && character.starships && getStarshipsByCharacterId(cid);
 	}, [character]);
 
+	const handleLikeClick = () => {
+		if (favList.has(cid)) removeFromLikedList(cid);
+		else addToLikedList(cid);
+	};
+
 	return (
 		<div>
 			{/* Character Info Section */}
@@ -42,7 +51,14 @@ const CharacterDetailView: React.FC<{ cid: string }> = ({ cid }) => {
 					{character?.name}
 				</h3>
 
-				<button className="relative group flex items-center justify-center w-12 h-12 bg-red-500 rounded-full text-white focus:outline-none disabled:opacity-50 disabled:pointer-events-none">
+				<button
+					className={`relative group flex items-center justify-center w-12 h-12 rounded-full text-white focus:outline-none disabled:opacity-50 disabled:pointer-events-none ${
+						favList.has(cid) ? "bg-red-500" : "bg-gray-400"
+					}`}
+					onClick={() => {
+						handleLikeClick();
+					}}
+				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						viewBox="0 0 24 24"

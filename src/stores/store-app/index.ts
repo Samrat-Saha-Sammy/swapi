@@ -3,13 +3,14 @@ import { IAppStore } from "./types";
 import useCharacterStore from "../store-character";
 import { getCharacters } from "../../shared/services";
 import { extractLastParamFromURL } from "../../shared/utils";
+import toast from "react-hot-toast";
 
 const useAppStore = create<IAppStore>((set, get) => ({
 	paginationSize: 10,
 	pageCount: 1,
 	isSearching: false,
 	displayBatchIds: [],
-
+	likeBatchIds: new Set<string>(),
 	_setDisplayBatchIds: (newBatchIds) => {
 		set({ displayBatchIds: newBatchIds });
 	},
@@ -33,6 +34,22 @@ const useAppStore = create<IAppStore>((set, get) => ({
 		} catch (error) {
 			//
 		}
+	},
+	addToLikedList: (id) => {
+		const newSet = new Set(get().likeBatchIds);
+		newSet.add(id);
+		set({ likeBatchIds: newSet });
+		toast("Good Job! Added to your fav list", {
+			icon: "🥰",
+		});
+	},
+	removeFromLikedList: (id) => {
+		const newSet = new Set(get().likeBatchIds);
+		newSet.delete(id);
+		set({ likeBatchIds: newSet });
+		toast("Oops! Remove from your fav list", {
+			icon: "💔",
+		});
 	},
 }));
 
