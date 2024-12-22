@@ -7,24 +7,7 @@ interface Params extends Record<string, string | undefined> {
 
 const DetailsPage: React.FC = () => {
 	const { id } = useParams<Params>(); // Extract the `id` parameter
-
-	// useEffect(() => {
-	//   debugger;
-	//   if (character?.films) {
-	//     const filmIdAry = extractLastParamsFromURLArray(character?.films);
-	//     const filmObjAry = filmIdAry.map((filmId) => {
-	//       return allFilms[filmId];
-	//     });
-	//     setFilms(filmObjAry);
-	//   }
-	// }, [character?.films, allFilms]);
-
-	return (
-		<div>
-			<h1>Details Page {id}</h1>
-			{id && <CharacterDetailView cid={id} />}
-		</div>
-	);
+	return <>{id && <CharacterDetailView cid={id} />}</>;
 };
 
 export default DetailsPage;

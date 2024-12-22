@@ -38,7 +38,7 @@ const CharacterListView: React.FC<{ cid: string }> = ({ cid }) => {
 				</span>
 			</div>
 			<button
-				className="rounded-lg bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-200"
+				className="px-6 py-2 min-w-[120px] text-center text-violet-600 border border-violet-600 rounded hover:bg-violet-600 hover:text-white active:bg-indigo-500 focus:outline-none focus:ring"
 				onClick={() => handleDetailsClick(cid)}
 			>
 				View Details
