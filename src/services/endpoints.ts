@@ -1,6 +1,5 @@
-// @TODO: Fix the code to be dynamic
-// const API_BASE_URL = import.meta.env.VITE_END_POINT;
-const API_BASE_URL = "api";
+const API_BASE_URL = process.env.VITE_END_POINT;
 
 export const API_PEOPLE = API_BASE_URL + "/people";
 export const API_PLANET = API_BASE_URL + "/planets";
+export const API_FILM = API_BASE_URL + "/films";

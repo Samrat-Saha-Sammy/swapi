@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from "axios";
-import { API_PEOPLE, API_PLANET } from "./endpoints";
-import { ICharacter, ICharacterList, IPlanet } from "./types";
+import { API_FILM, API_PEOPLE, API_PLANET } from "./endpoints";
+import { ICharacter, ICharacterList, IFilm, IPlanet } from "./types";
 
 export const getCharacters = async (): Promise<
   AxiosResponse<ICharacterList>
@@ -31,6 +31,17 @@ export const getPlanetDetails = async (
     return await axios.get<IPlanet>(`${API_PLANET}/${planetId}`);
   } catch (error) {
     console.error("Error fetching planet details:", error);
+    throw error;
+  }
+};
+
+export const getFilmDetails = async (
+  filmId: string
+): Promise<AxiosResponse<IFilm>> => {
+  try {
+    return await axios.get<IFilm>(`${API_FILM}/${filmId}`);
+  } catch (error) {
+    console.error("Error fetching film details:", error);
     throw error;
   }
 };
