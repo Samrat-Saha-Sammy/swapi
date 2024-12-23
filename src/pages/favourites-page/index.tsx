@@ -24,7 +24,7 @@ const FavouritesPage: React.FC = () => {
 					);
 				})
 			) : (
-				<p>Oops! no like characters found</p>
+				<p className="text-red-400">Oops! fav list is empty</p>
 			)}
 		</ul>
 	);
