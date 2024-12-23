@@ -1,6 +1,15 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
+/**
+ * NavBarLayout component renders the navigation bar of the application.
+ * It includes links to the homepage and the favourites page, with dynamic styling
+ * based on the active route. The component uses `NavLink` from `react-router-dom`
+ * to handle navigation and highlight the active link.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered NavBarLayout component with navigation links.
+ */
 const NavBarLayout = () => {
 	return (
 		<div className="flex flex-wrap place-items-center w-full overflow-hidden">

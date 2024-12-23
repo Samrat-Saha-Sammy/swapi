@@ -1,10 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import useCharacterStore from "../../stores/store-character";
 import usePlanetStore from "../../stores/store-planet";
 import useFilmStore from "../../stores/store-film";
 import useStarshipStore from "../../stores/store-starship";
 import useAppStore from "../../stores/store-app";
 
+/**
+ * CharacterDetailCard component displays detailed information about a character, including
+ * their films, starships, and planet. The component allows users to like or unlike the character.
+ *
+ * @component
+ * @param {Object} props - The props for the component.
+ * @param {string} props.cid - The unique ID of the character to fetch and display details.
+ *
+ * @returns {JSX.Element} The rendered CharacterDetailCard component.
+ */
 const CharacterDetailCard: React.FC<{ cid: string }> = ({ cid }) => {
 	// Access properties from stores to access data
 	const character = useCharacterStore((state) => state.characters[cid]);
@@ -27,16 +37,32 @@ const CharacterDetailCard: React.FC<{ cid: string }> = ({ cid }) => {
 	const allFilms = useFilmStore((state) => state.films);
 	const allStarships = useStarshipStore((state) => state.starships);
 
+	/**
+	 * Effect hook to fetch the character's data when the component mounts or when `cid` changes.
+	 *
+	 * @param {string} cid - The character ID that triggers the data fetching.
+	 */
 	useEffect(() => {
 		getCharacterById(cid);
 	}, [cid]);
 
+	/**
+	 * Effect hook to fetch additional data such as the planet, films, and starships when the character
+	 * data becomes available.
+	 *
+	 * @param {Object} character - The character data fetched from the store.
+	 */
 	useEffect(() => {
-		character && character.planetId && getPlanetById(character.planetId);
-		character && character.films && getFilmsByCharacterId(cid);
-		character && character.starships && getStarshipsByCharacterId(cid);
+		if (character) {
+			character.planetId && getPlanetById(character.planetId);
+			character.films && getFilmsByCharacterId(cid);
+			character.starships && getStarshipsByCharacterId(cid);
+		}
 	}, [character]);
 
+	/**
+	 * Handles the "like" button click. Adds or removes the character from the liked list.
+	 */
 	const handleLikeClick = () => {
 		if (favList.has(cid)) removeFromLikedList(cid);
 		else addToLikedList(cid);
@@ -68,7 +94,7 @@ const CharacterDetailCard: React.FC<{ cid: string }> = ({ cid }) => {
 				</button>
 			</div>
 
-			{/* <!-- Character Details --> */}
+			{/* Character Details */}
 			<div className="mb-8 text-gray-700">
 				<p>
 					<span className="font-semibold text-gray-900">Gender: </span>
@@ -103,7 +129,7 @@ const CharacterDetailCard: React.FC<{ cid: string }> = ({ cid }) => {
 							) : null;
 						})
 					) : (
-						<p className="text-red-400">No Files</p>
+						<p className="text-red-400">No Films</p>
 					)}
 				</div>
 			</div>

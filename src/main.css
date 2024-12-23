@@ -1,3 +1,15 @@
+/* 
+  Tailwind CSS Directives:
+  
+  @tailwind base;
+  - This directive injects Tailwind's default styles, such as normalize.css, which ensures consistent styling across different browsers.
+  
+  @tailwind components;
+  - This directive includes Tailwind's default component styles, like buttons, form elements, and other reusable UI components.
+  
+  @tailwind utilities;
+  - This directive enables utility classes, which provide low-level utility functions for styling (e.g., padding, margin, colors, etc.).
+*/
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

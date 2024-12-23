@@ -2,24 +2,46 @@ import React, { useEffect } from "react";
 import useCharacterStore from "../../stores/store-character";
 import usePlanetStore from "../../stores/store-planet";
 
-// @TODO: Convert to a compound component to resuse
+// @TODO: Convert to a compound component to reuse
+
+/**
+ * CharacterCard component displays a character's information along with a button
+ * that allows the user to trigger a callback function when clicked.
+ *
+ * @component
+ * @param {Object} props - The props for the component.
+ * @param {string} props.cid - The unique ID of the character.
+ * @param {Function} props.handleClick - The callback function to be invoked when the button is clicked.
+ * @param {string} [props.btnText="Select Card"] - The text to display on the button (default is "Select Card").
+ *
+ * @returns {JSX.Element} The rendered CharacterCard component.
+ */
 const CharacterCard: React.FC<{
 	cid: string;
 	handleClick: (id: string) => void;
 	btnText: string;
 }> = ({ cid, handleClick, btnText = "Select Card" }) => {
+	// Fetch character and planet data from the stores
 	const character = useCharacterStore((state) => state.characters[cid]);
 	const planet = usePlanetStore((state) => state.planets[character.planetId]);
 
+	// Actions to fetch character and planet data by ID
 	const getPlanetByCharacterId = usePlanetStore(
 		(state) => state.getPlanetByCharacterId
 	);
 	const getCharacterById = useCharacterStore((state) => state.getCharacterById);
 
+	/**
+	 * Handles the click event for the "Details" button.
+	 * Calls the `handleClick` function passed down as a prop with the character ID.
+	 *
+	 * @param {string} id - The character ID.
+	 */
 	const handleDetailsClick = (id: string) => {
 		handleClick(id);
 	};
 
+	// Fetch character and planet data on component mount or when `cid` changes
 	useEffect(() => {
 		getCharacterById(cid);
 		getPlanetByCharacterId(cid);
