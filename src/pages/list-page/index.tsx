@@ -4,6 +4,8 @@ import CharactersList from "../../components/character-list";
 
 const ListPage: React.FC = () => {
 	const totalCount = useAppStore((state) => state.totalCount);
+	const pageCount = useAppStore((state) => state.pageCount);
+	const paginationSize = useAppStore((state) => state.paginationSize);
 	const isPrev = useAppStore((state) => !!state.previous);
 	const isNext = useAppStore((state) => !!state.next);
 	const isLoading = useAppStore((state) => state.isLoading);
@@ -25,6 +27,9 @@ const ListPage: React.FC = () => {
 		isNext && goToNextPage();
 	};
 
+	const recordsTo: number = Math.min(totalCount, paginationSize * pageCount);
+	const recordsFrom: number = recordsTo - paginationSize + 1;
+
 	return (
 		<>
 			{/* <!-- Search Bar --> */}
@@ -42,8 +47,11 @@ const ListPage: React.FC = () => {
 			{/* <!-- Pagination --> */}
 			<div className="flex items-center justify-between text-gray-600">
 				<p className="text-sm">
-					Showing <span className="font-semibold">1-10</span> of{" "}
-					<span className="font-semibold">{totalCount}</span> records
+					Showing{" "}
+					<span className="font-semibold">
+						{recordsFrom}-{recordsTo}
+					</span>{" "}
+					of <span className="font-semibold">{totalCount}</span> records
 				</p>
 				<div className="flex space-x-2 align-middle">
 					{isLoading && (
