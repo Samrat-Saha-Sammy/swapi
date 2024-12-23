@@ -8,15 +8,20 @@ import toast from "react-hot-toast";
 const useAppStore = create<IAppStore>((set, get) => ({
 	paginationSize: 10,
 	pageCount: 1,
+	totalCount: 0,
+	next: null,
+	previous: null,
 	isSearching: false,
+	isLoading: false,
 	displayBatchIds: [],
 	likeBatchIds: new Set<string>(),
 	_setDisplayBatchIds: (newBatchIds) => {
 		set({ displayBatchIds: newBatchIds });
 	},
-	fetchDisplayBatchIds: async () => {
+	fetchDisplayBatchIds: async (params) => {
 		try {
-			const response = await getCharacters();
+			set(() => ({ isLoading: true }));
+			const response = await getCharacters(params);
 			const newBatchIds: string[] = [];
 			for (const key in response.data.results) {
 				const row = response.data.results[key];
@@ -29,11 +34,31 @@ const useAppStore = create<IAppStore>((set, get) => ({
 					// @TODO: Add Error notification
 				}
 			}
-
+			set(() => ({ next: response.data.next }));
+			set(() => ({ previous: response.data.previous }));
+			set(() => ({ totalCount: response.data.count }));
 			get()._setDisplayBatchIds(newBatchIds);
 		} catch (error) {
 			//
+		} finally {
+			set(() => ({ isLoading: false }));
 		}
+	},
+	_disableBothPrevNext: () => {
+		set(() => ({ next: null }));
+		set(() => ({ previous: null }));
+	},
+	goToNextPage: async () => {
+		get()._disableBothPrevNext();
+		const nextPage = get().pageCount + 1;
+		get().fetchDisplayBatchIds({ page: `${nextPage}` });
+		set({ pageCount: nextPage });
+	},
+	goToPrevPage: async () => {
+		get()._disableBothPrevNext();
+		const prevPage = get().pageCount - 1;
+		get().fetchDisplayBatchIds({ page: `${prevPage}` });
+		set({ pageCount: prevPage });
 	},
 	addToLikedList: (id) => {
 		const newSet = new Set(get().likeBatchIds);

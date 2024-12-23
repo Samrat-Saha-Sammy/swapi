@@ -2,11 +2,11 @@ import axios, { AxiosResponse } from "axios";
 import { API_FILM, API_PEOPLE, API_PLANET, API_STARSHIP } from "./endpoints";
 import { ICharacter, ICharacterList, IFilm, IPlanet, IStarship } from "./types";
 
-export const getCharacters = async (): Promise<
-	AxiosResponse<ICharacterList>
-> => {
+export const getCharacters = async (
+	params: Record<string, string> = {}
+): Promise<AxiosResponse<ICharacterList>> => {
 	try {
-		return await axios.get<ICharacterList>(`${API_PEOPLE}`);
+		return await axios.get<ICharacterList>(`${API_PEOPLE}`, { params: params });
 	} catch (error) {
 		console.error("Error fetching characters:", error);
 		throw error;
