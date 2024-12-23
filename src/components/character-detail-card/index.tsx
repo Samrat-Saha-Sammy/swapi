@@ -6,7 +6,7 @@ import useFilmStore from "../../stores/store-film";
 import useStarshipStore from "../../stores/store-starship";
 import useAppStore from "../../stores/store-app";
 
-const CharacterDetailView: React.FC<{ cid: string }> = ({ cid }) => {
+const CharacterDetailCard: React.FC<{ cid: string }> = ({ cid }) => {
 	// Access properties from stores to access data
 	const character = useCharacterStore((state) => state.characters[cid]);
 	const planet = usePlanetStore((state) => state.planets[character?.planetId]);
@@ -132,4 +132,4 @@ const CharacterDetailView: React.FC<{ cid: string }> = ({ cid }) => {
 	);
 };
 
-export default CharacterDetailView;
+export default CharacterDetailCard;

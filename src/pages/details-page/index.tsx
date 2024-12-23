@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import CharacterDetailView from "../../components/character-detail-view";
+import CharacterDetailView from "../../components/character-detail-card";
 interface Params extends Record<string, string | undefined> {
 	id: string;
 }
