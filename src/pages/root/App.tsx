@@ -6,7 +6,7 @@ import NotFoundPage from "../404-page";
 // Lazy-loaded Pages
 const ListPage = lazy(() => import("../list-page"));
 const DetailsPage = lazy(() => import("../details-page"));
-const FavouritesPage = lazy(() => import("..//favourites-page"));
+const FavouritesPage = lazy(() => import("../favourites-page"));
 
 /**
  * App component serves as the main entry point of the application.
