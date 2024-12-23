@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useCharacterStore from "../../stores/store-character";
 import usePlanetStore from "../../stores/store-planet";
-import { useNavigate } from "react-router-dom";
 import useFilmStore from "../../stores/store-film";
 import useStarshipStore from "../../stores/store-starship";
 import useAppStore from "../../stores/store-app";
@@ -41,6 +40,8 @@ const CharacterDetailCard: React.FC<{ cid: string }> = ({ cid }) => {
 	const handleLikeClick = () => {
 		if (favList.has(cid)) removeFromLikedList(cid);
 		else addToLikedList(cid);
+
+		console.log(favList);
 	};
 
 	return (

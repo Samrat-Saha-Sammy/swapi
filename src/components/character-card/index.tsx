@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
 import useCharacterStore from "../../stores/store-character";
 import usePlanetStore from "../../stores/store-planet";
-import { useNavigate } from "react-router-dom";
-import useFilmStore from "../../stores/store-film";
 
-const CharacterCard: React.FC<{ cid: string }> = ({ cid }) => {
+// @TODO: Convert to a compound component to resuse
+const CharacterCard: React.FC<{
+	cid: string;
+	handleClick: (id: string) => void;
+	btnText: string;
+}> = ({ cid, handleClick, btnText = "Select Card" }) => {
 	const character = useCharacterStore((state) => state.characters[cid]);
 	const planet = usePlanetStore((state) => state.planets[character.planetId]);
 
@@ -12,10 +15,9 @@ const CharacterCard: React.FC<{ cid: string }> = ({ cid }) => {
 		(state) => state.getPlanetByCharacterId
 	);
 	const getCharacterById = useCharacterStore((state) => state.getCharacterById);
-	const navigate = useNavigate();
 
 	const handleDetailsClick = (id: string) => {
-		navigate(`/details/${id}`);
+		handleClick(id);
 	};
 
 	useEffect(() => {
@@ -36,7 +38,7 @@ const CharacterCard: React.FC<{ cid: string }> = ({ cid }) => {
 				className="px-6 py-2 min-w-[120px] text-center text-violet-600 border border-violet-600 rounded hover:bg-violet-600 hover:text-white active:bg-indigo-500 focus:outline-none focus:ring"
 				onClick={() => handleDetailsClick(cid)}
 			>
-				View Details
+				{btnText}
 			</button>
 		</li>
 	);

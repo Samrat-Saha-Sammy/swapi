@@ -3,32 +3,30 @@ import useAppStore from "../../stores/store-app";
 import CharactersList from "../../components/character-list";
 
 const ListPage: React.FC = () => {
-  const fetchDisplayBatchIds = useAppStore(
-    (state) => state.fetchDisplayBatchIds
-  );
+	const fetchDisplayBatchIds = useAppStore(
+		(state) => state.fetchDisplayBatchIds
+	);
 
-  useEffect(() => {
-    fetchDisplayBatchIds();
-  }, []);
+	useEffect(() => {
+		fetchDisplayBatchIds();
+	}, []);
 
-  return (
-    <>
-      {/* <!-- Header Section --> */}
+	return (
+		<>
+			{/* <!-- Search Bar --> */}
+			<div className="flex items-center space-x-2">
+				<input
+					type="text"
+					placeholder="Search items..."
+					className="flex-grow rounded-lg border border-gray-300 p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+				/>
+			</div>
 
-      {/* <!-- Search Bar --> */}
-      <div className="flex items-center space-x-2">
-        <input
-          type="text"
-          placeholder="Search items..."
-          className="flex-grow rounded-lg border border-gray-300 p-3 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-      </div>
+			{/* <!-- Items List --> */}
+			<CharactersList />
 
-      {/* <!-- Items List --> */}
-      <CharactersList />
-
-      {/* <!-- Pagination --> */}
-      {/* <div className="flex items-center justify-between text-gray-600">
+			{/* <!-- Pagination --> */}
+			{/* <div className="flex items-center justify-between text-gray-600">
             <p className="text-sm">
               Showing <span className="font-semibold">1-10</span> of{" "}
               <span className="font-semibold">50</span> records
@@ -42,14 +40,8 @@ const ListPage: React.FC = () => {
               </button>
             </div>
           </div> */}
-
-      {/* <h1>List Page</h1>
-      {/* Search Component */}
-      {/* <CharactersList /> */}
-      {/* Pagination Component */}
-      {/* <NotFoundPage /> */}
-    </>
-  );
+		</>
+	);
 };
 
 export default ListPage;

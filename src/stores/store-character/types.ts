@@ -1,6 +1,6 @@
 import { ICharacter } from "../../shared/services/types";
 
-interface ICharacterWithPlanetId extends ICharacter {
+export interface ICharacterWithPlanetId extends ICharacter {
 	planetId: string;
 }
 
