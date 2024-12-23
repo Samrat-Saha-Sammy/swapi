@@ -40,8 +40,6 @@ const CharacterDetailCard: React.FC<{ cid: string }> = ({ cid }) => {
 	const handleLikeClick = () => {
 		if (favList.has(cid)) removeFromLikedList(cid);
 		else addToLikedList(cid);
-
-		console.log(favList);
 	};
 
 	return (

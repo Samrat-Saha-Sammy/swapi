@@ -39,7 +39,7 @@ const useAppStore = create<IAppStore>((set, get) => ({
 		const newSet = new Set(get().likeBatchIds);
 		newSet.add(id);
 		set({ likeBatchIds: newSet });
-		toast("Good Job! Added to your fav list", {
+		toast("Nice! added to your fav list", {
 			icon: "🥰",
 		});
 	},
@@ -47,7 +47,7 @@ const useAppStore = create<IAppStore>((set, get) => ({
 		const newSet = new Set(get().likeBatchIds);
 		newSet.delete(id);
 		set({ likeBatchIds: newSet });
-		toast("Oops! Remove from your fav list", {
+		toast("Oops! removed from your fav list", {
 			icon: "💔",
 		});
 	},
