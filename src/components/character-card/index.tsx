@@ -12,9 +12,6 @@ const CharacterCard: React.FC<{ cid: string }> = ({ cid }) => {
 		(state) => state.getPlanetByCharacterId
 	);
 	const getCharacterById = useCharacterStore((state) => state.getCharacterById);
-	const getFilmsByCharacterId = useFilmStore(
-		(state) => state.getFilmsByCharacterId
-	);
 	const navigate = useNavigate();
 
 	const handleDetailsClick = (id: string) => {
