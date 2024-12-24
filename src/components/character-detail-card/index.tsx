@@ -80,9 +80,7 @@ const CharacterDetailCard: React.FC<{ cid: string }> = ({ cid }) => {
 					className={`relative group flex items-center justify-center w-12 h-12 rounded-full text-white focus:outline-none disabled:opacity-50 disabled:pointer-events-none ${
 						favList.has(cid) ? "bg-red-500" : "bg-gray-400"
 					}`}
-					onClick={() => {
-						handleLikeClick();
-					}}
+					onClick={handleLikeClick}
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
