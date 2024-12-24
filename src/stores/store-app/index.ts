@@ -89,6 +89,7 @@ const useAppStore = create<IAppStore>((set, get) => ({
 			set(() => ({ isLoading: true }));
 			set({ inSearchMode: false });
 			set({ isSearching: false });
+
 			const response = await getCharacters(params);
 			const newBatchIds: string[] = [];
 			for (const key in response.data.results) {
@@ -108,6 +109,7 @@ const useAppStore = create<IAppStore>((set, get) => ({
 			get()._setDisplayBatchIds(newBatchIds);
 		} catch (error) {
 			// Optional error handling (e.g., logging or notifications)
+			console.error("Error fetching character list", error);
 		} finally {
 			set(() => ({ isLoading: false }));
 		}

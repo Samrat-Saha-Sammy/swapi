@@ -45,6 +45,8 @@ const CharacterCard: React.FC<{
 	useEffect(() => {
 		getCharacterById(cid);
 		getPlanetByCharacterId(cid);
+		// Disabling the eslint for to supress the warning, as not intended to add methods in dependency
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [cid]);
 
 	return (

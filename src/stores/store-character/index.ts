@@ -56,6 +56,7 @@ const useCharacterStore = create<ICharacterStore>((set, get) => ({
 				get()._addCharacterById(cid, response.data);
 			} catch (error) {
 				// Handle error (e.g., log the error or display a message)
+				console.error("Error fetching character details", error);
 			}
 		}
 	},

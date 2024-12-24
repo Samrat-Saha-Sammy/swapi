@@ -7,7 +7,7 @@
  * @returns The last parameter as a string, or null if no parameter exists.
  */
 export const extractLastParamFromURL = (url: string): string | null => {
-	const regex = /\/([^\/]+)\/?$/; // Regex to match the last segment of the URL
+	const regex = /\/([^/]+)\/?$/; // Regex to match the last segment of the URL
 	const match = url.match(regex);
 
 	// If a match is found, return the captured parameter; otherwise, return null.

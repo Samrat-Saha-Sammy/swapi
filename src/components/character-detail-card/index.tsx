@@ -44,6 +44,8 @@ const CharacterDetailCard: React.FC<{ cid: string }> = ({ cid }) => {
 	 */
 	useEffect(() => {
 		getCharacterById(cid);
+		// Disabling the eslint for to supress the warning, as not intended to add methods in dependency
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [cid]);
 
 	/**
@@ -54,10 +56,12 @@ const CharacterDetailCard: React.FC<{ cid: string }> = ({ cid }) => {
 	 */
 	useEffect(() => {
 		if (character) {
-			character.planetId && getPlanetById(character.planetId);
-			character.films && getFilmsByCharacterId(cid);
-			character.starships && getStarshipsByCharacterId(cid);
+			if (character.planetId) getPlanetById(character.planetId);
+			if (character.films) getFilmsByCharacterId(cid);
+			if (character.starships) getStarshipsByCharacterId(cid);
 		}
+		// Disabling the eslint for to supress the warning, as not intended to add methods in dependency
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [character]);
 
 	/**

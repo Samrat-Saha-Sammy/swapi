@@ -22,6 +22,8 @@ const ListPage: React.FC = () => {
 	// Fetch data when the component is mounted
 	useEffect(() => {
 		fetchDisplayBatchIds();
+		// Disabling the eslint for to supress the warning, as not intended to add methods in dependency
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
