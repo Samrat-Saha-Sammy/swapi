@@ -50,7 +50,7 @@ const PaginationBar: React.FC = () => {
 
 	return (
 		<>
-			{!inSearchMode && totalCount && (
+			{!inSearchMode && totalCount > 0 && (
 				<div
 					className="flex items-center justify-between text-gray-600"
 					role="region"
