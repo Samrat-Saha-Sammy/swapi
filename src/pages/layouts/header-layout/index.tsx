@@ -14,7 +14,7 @@ const HeaderLayout: React.FC = () => {
 				Frontend Technical Activity
 			</h1>
 			<p className="text-gray-600">
-				A brief description or tagline about the project can go here.
+				A comprehensive React-based frontend application using star wars API
 			</p>
 		</header>
 	);
