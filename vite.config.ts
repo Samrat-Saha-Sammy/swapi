@@ -23,5 +23,12 @@ export default defineConfig(({ mode }) => {
 			"process.env.VITE_API_URL": JSON.stringify(env.VITE_API_URL),
 		},
 		plugins: [react(), tsconfigPaths()],
+		build: {
+			manifest: true,
+			sourcemap: false,
+			rollupOptions: {
+				external: ["**/*.stories.tsx", "**/*.stories.mdx", "**/storybook/**"],
+			},
+		},
 	};
 });
