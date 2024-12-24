@@ -33,6 +33,9 @@ export interface IAppStore {
 	 */
 	isSearching: boolean;
 
+	searchTerm: string;
+	inSearchMode: boolean;
+
 	/**
 	 * A flag indicating whether the app is loading data.
 	 */
@@ -93,4 +96,7 @@ export interface IAppStore {
 	 * @param id - The character ID to be removed from the liked list.
 	 */
 	removeFromLikedList(id: string): void;
+
+	searchByName(query: string): void;
+	clearSearch(): void;
 }

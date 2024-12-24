@@ -39,6 +39,8 @@ const useAppStore = create<IAppStore>((set, get) => ({
 	 * Flag indicating whether a search operation is in progress.
 	 */
 	isSearching: false,
+	inSearchMode: false,
+	searchTerm: "",
 
 	/**
 	 * Flag indicating whether data is being loaded.
@@ -72,6 +74,8 @@ const useAppStore = create<IAppStore>((set, get) => ({
 	fetchDisplayBatchIds: async (params) => {
 		try {
 			set(() => ({ isLoading: true }));
+			set({ inSearchMode: false });
+			set({ isSearching: false });
 			const response = await getCharacters(params);
 			const newBatchIds: string[] = [];
 			for (const key in response.data.results) {
@@ -150,6 +154,31 @@ const useAppStore = create<IAppStore>((set, get) => ({
 		toast("Oops! removed from your fav list", {
 			icon: "💔",
 		});
+	},
+	searchByName: (query) => {
+		if (query.trim().length > 0) {
+			set({ inSearchMode: true });
+			set({ isSearching: true });
+
+			const characters = useCharacterStore.getState().characters;
+			const result: string[] = [];
+
+			for (const key in characters) {
+				if (
+					characters[key]["name"] &&
+					characters[key]["name"].toLowerCase().includes(query.toLowerCase())
+				) {
+					result.push(key);
+				}
+			}
+
+			set({ isSearching: false });
+			get()._setDisplayBatchIds(result);
+		}
+	},
+	clearSearch: () => {
+		set({ totalCount: 0 });
+		get().fetchDisplayBatchIds();
 	},
 }));
 
