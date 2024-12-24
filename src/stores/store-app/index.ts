@@ -7,7 +7,11 @@ import toast from "react-hot-toast";
 
 /**
  * Zustand store for managing application state related to character data, pagination, and liked characters.
- * The store includes state for pagination, loading status, liked characters, and utility methods for updating the state.
+ * This store handles character fetching, pagination control, liked characters, search functionality,
+ * and related state updates.
+ *
+ * @example
+ * const appStore = useAppStore();
  */
 const useAppStore = create<IAppStore>((set, get) => ({
 	/**
@@ -39,7 +43,15 @@ const useAppStore = create<IAppStore>((set, get) => ({
 	 * Flag indicating whether a search operation is in progress.
 	 */
 	isSearching: false,
+
+	/**
+	 * Flag indicating whether the search mode is active.
+	 */
 	inSearchMode: false,
+
+	/**
+	 * The current search term used for filtering characters by name.
+	 */
 	searchTerm: "",
 
 	/**
@@ -48,7 +60,7 @@ const useAppStore = create<IAppStore>((set, get) => ({
 	isLoading: false,
 
 	/**
-	 * The list of character IDs to display on the current page.
+	 * List of character IDs to display on the current page.
 	 */
 	displayBatchIds: [],
 
@@ -58,20 +70,21 @@ const useAppStore = create<IAppStore>((set, get) => ({
 	likeBatchIds: new Set<string>(),
 
 	/**
-	 * Updates the list of character IDs to display.
+	 * Updates the list of character IDs to display on the current page.
 	 *
-	 * @param newBatchIds - The new list of character IDs.
+	 * @param newBatchIds - The new list of character IDs to be displayed.
 	 */
-	_setDisplayBatchIds: (newBatchIds) => {
+	_setDisplayBatchIds: (newBatchIds: string[]) => {
 		set({ displayBatchIds: newBatchIds });
 	},
 
 	/**
-	 * Fetches the character data for the current page and updates the state.
+	 * Fetches character data for the current page and updates the store state.
+	 * It calls the `getCharacters` service to fetch the data and updates pagination and character list.
 	 *
-	 * @param params - The query parameters to be sent to the API.
+	 * @param params - The query parameters for the character fetch request.
 	 */
-	fetchDisplayBatchIds: async (params) => {
+	fetchDisplayBatchIds: async (params?: { page: string }) => {
 		try {
 			set(() => ({ isLoading: true }));
 			set({ inSearchMode: false });
@@ -86,7 +99,7 @@ const useAppStore = create<IAppStore>((set, get) => ({
 					newBatchIds.push(id);
 					useCharacterStore.getState()._addCharacterById(id, row); // Store character by ID
 				} else {
-					// @TODO: Add Error notification for invalid URL
+					// @TODO: Add error notification for invalid URL
 				}
 			}
 			set(() => ({ next: response.data.next }));
@@ -94,14 +107,14 @@ const useAppStore = create<IAppStore>((set, get) => ({
 			set(() => ({ totalCount: response.data.count }));
 			get()._setDisplayBatchIds(newBatchIds);
 		} catch (error) {
-			// Handle errors (optional logging or notification)
+			// Optional error handling (e.g., logging or notifications)
 		} finally {
 			set(() => ({ isLoading: false }));
 		}
 	},
 
 	/**
-	 * Disables both the "previous" and "next" pagination buttons.
+	 * Disables both the "previous" and "next" pagination buttons by setting them to null.
 	 */
 	_disableBothPrevNext: () => {
 		set(() => ({ next: null }));
@@ -133,7 +146,7 @@ const useAppStore = create<IAppStore>((set, get) => ({
 	 *
 	 * @param id - The character ID to be added to the liked list.
 	 */
-	addToLikedList: (id) => {
+	addToLikedList: (id: string) => {
 		const newSet = new Set(get().likeBatchIds);
 		newSet.add(id);
 		set({ likeBatchIds: newSet });
@@ -147,7 +160,7 @@ const useAppStore = create<IAppStore>((set, get) => ({
 	 *
 	 * @param id - The character ID to be removed from the liked list.
 	 */
-	removeFromLikedList: (id) => {
+	removeFromLikedList: (id: string) => {
 		const newSet = new Set(get().likeBatchIds);
 		newSet.delete(id);
 		set({ likeBatchIds: newSet });
@@ -155,7 +168,13 @@ const useAppStore = create<IAppStore>((set, get) => ({
 			icon: "💔",
 		});
 	},
-	searchByName: (query) => {
+
+	/**
+	 * Searches characters by name and updates the display with matching characters' IDs.
+	 *
+	 * @param query - The search query to filter character names.
+	 */
+	searchByName: (query: string) => {
 		if (query.trim().length > 0) {
 			set({ inSearchMode: true });
 			set({ isSearching: true });
@@ -176,6 +195,10 @@ const useAppStore = create<IAppStore>((set, get) => ({
 			get()._setDisplayBatchIds(result);
 		}
 	},
+
+	/**
+	 * Clears the search results and refetches the character data.
+	 */
 	clearSearch: () => {
 		set({ totalCount: 0 });
 		get().fetchDisplayBatchIds();
