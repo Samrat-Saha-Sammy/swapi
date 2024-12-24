@@ -3,7 +3,6 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import "./main.css";
 import App from "./pages/root/App.tsx";
-import React from "react";
 
 /**
  * Entry point for the React application.
