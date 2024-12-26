@@ -58,6 +58,7 @@ const SearchBar: React.FC = () => {
 					onChange={handleInputChange}
 					aria-label="Search characters"
 					value={searchQuery}
+					data-testid="search-field"
 				/>
 				{inSearchMode && (
 					<button

@@ -98,19 +98,19 @@ const CharacterDetailCard: React.FC<{ cid: string }> = ({ cid }) => {
 
 			{/* Character Details */}
 			<div className="mb-8 text-gray-700">
-				<p>
+				<p data-testid="gender">
 					<span className="font-semibold text-gray-900">Gender: </span>
 					{character?.gender}
 				</p>
-				<p>
+				<p data-testid="hair_color">
 					<span className="font-semibold text-gray-900">Hair Color: </span>
 					{character?.hair_color}
 				</p>
-				<p>
+				<p data-testid="eye_color">
 					<span className="font-semibold text-gray-900">Eye Color: </span>
 					{character?.eye_color}
 				</p>
-				<p>
+				<p data-testid="planet_name">
 					<span className="font-semibold text-gray-900">Planet Name: </span>
 					{planet?.name}
 				</p>
@@ -121,7 +121,7 @@ const CharacterDetailCard: React.FC<{ cid: string }> = ({ cid }) => {
 				<h4 className="mb-4 text-2xl font-semibold text-gray-800">
 					Films Appeared In
 				</h4>
-				<div>
+				<div data-testid="films">
 					{character?.films.length > 0 ? (
 						Object.values(allFilms).map((film) => {
 							return character.films.includes(film.url) ? (
@@ -141,7 +141,7 @@ const CharacterDetailCard: React.FC<{ cid: string }> = ({ cid }) => {
 				<h4 className="mb-4 text-2xl font-semibold text-gray-800">
 					Starships Driven
 				</h4>
-				<div>
+				<div data-testid="starships">
 					{character?.starships.length > 0 ? (
 						Object.values(allStarships).map((starship) => {
 							return character.starships.includes(starship.url) ? (

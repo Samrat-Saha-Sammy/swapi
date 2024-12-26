@@ -1,7 +1,7 @@
 // App.test.tsx
 import { render, screen, waitFor } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
-import App from "./App"; // Adjust the import if needed
+import App from "./app"; // Adjust the import if needed
 
 // Mock the lazy-loaded components
 jest.mock("../list-page", () => ({
