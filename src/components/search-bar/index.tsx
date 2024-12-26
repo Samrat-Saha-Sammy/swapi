@@ -57,6 +57,7 @@ const SearchBar: React.FC = () => {
 					className="w-full rounded-lg border border-gray-300 p-3 pr-10 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
 					onChange={handleInputChange}
 					aria-label="Search characters"
+					value={searchQuery}
 				/>
 				{inSearchMode && (
 					<button
