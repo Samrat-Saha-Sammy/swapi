@@ -21,6 +21,7 @@
     "!**/coverage/**"
   ],
   "coveragePathIgnorePatterns": [
+    ".*\\.stories\\.(js|ts|jsx|tsx)$",
     "/node_modules/",
     "setup-tests.ts",
     "vite-env.d.ts"
