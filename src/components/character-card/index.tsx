@@ -23,7 +23,7 @@ const CharacterCard: React.FC<{
 }> = ({ cid, handleClick, btnText = "Select Card" }) => {
 	// Fetch character and planet data from the stores
 	const character = useCharacterStore((state) => state.characters[cid]);
-	const planet = usePlanetStore((state) => state.planets[character.planetId]);
+	const planet = usePlanetStore((state) => state.planets[character?.planetId]);
 
 	// Actions to fetch character and planet data by ID
 	const getPlanetByCharacterId = usePlanetStore(

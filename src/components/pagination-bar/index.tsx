@@ -56,7 +56,7 @@ const PaginationBar: React.FC = () => {
 					role="region"
 					aria-label="Pagination"
 				>
-					<p className="text-sm">
+					<p className="text-sm" data-testid="p-text-1">
 						Showing{" "}
 						<span className="font-semibold">
 							{recordsFrom}-{recordsTo}
