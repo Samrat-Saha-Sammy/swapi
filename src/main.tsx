@@ -2,8 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import "./main.css";
-import App from "../src/pages/root/app";
-
+import App from "./pages/root/App";
 /**
  * Entry point for the React application.
  * This code initializes and renders the root component of the application.
